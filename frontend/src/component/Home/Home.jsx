@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { CgMouse } from 'react-icons/cg'
-import './Home.css'
-import ProductCard from './ProductCard'
-import MetaData from './../layout/MetaData';
+import React, { useEffect } from 'react';
+import { useAlert } from 'react-alert';
+import { CgMouse } from 'react-icons/cg';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../actions/productAction';
-import { useSelector, useDispatch } from 'react-redux'
-import Loader from './../layout/Loader/Loader';
-import { useAlert } from 'react-alert'
 import { clearError } from './../../actions/productAction';
+import Loader from './../layout/Loader/Loader';
+import MetaData from './../layout/MetaData';
+import './Home.css';
+import ProductCard from './ProductCard';
 
 function Home() {
     const alert = useAlert()

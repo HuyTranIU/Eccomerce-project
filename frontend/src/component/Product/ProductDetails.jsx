@@ -26,7 +26,6 @@ function ProductDetails() {
         activeColor: "tomato",
         isHalf: true,
     }
-    console.log('productDetails: ', product);
 
     useEffect(() => {
         if (error) {
