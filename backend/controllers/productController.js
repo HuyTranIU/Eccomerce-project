@@ -20,12 +20,10 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
 
 // Get All Product
-exports.getAllProducts = catchAsyncError(async (req, res) => {
-
+exports.getAllProducts = catchAsyncError(async (req, res, next) => {
 
     const resultPerPage = 8
-    const productCount = await Product.countDocuments()
-
+    const productsCount = await Product.countDocuments()
 
     const apiFeature = new ApiFeatures(Product.find(), req.query)
         .search()
@@ -35,7 +33,7 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
     res.status(200).json({
         success: true,
         products,
-        productCount
+        productsCount
     })
 })
 
@@ -100,9 +98,8 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 
     if (isReviewed) {
         product.reviews.forEach(rev => {
-            if (rev => rev.user.toString() === req.user._id.toString()) { }
-            rev.rating = rating
-            rev.comment = comment
+            if (rev.user.toString() === req.user._id.toString())
+                (rev.rating = rating), (rev.comment = comment);
         })
     } else {
         product.reviews.push(review)

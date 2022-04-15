@@ -1,46 +1,55 @@
-import React, { Fragment } from 'react'
+import React, { useEffect } from 'react'
 import { CgMouse } from 'react-icons/cg'
 import './Home.css'
-import Product from './Product'
+import ProductCard from './ProductCard'
 import MetaData from './../layout/MetaData';
-
-
-const product = {
-    name: "Lee Jieun",
-    images: [{ url: "https://image.thanhnien.vn/w1024/Uploaded/2022/lxwpcqjwp/2022_02_26/anh-1-8702.jpg" }],
-    price: "$3000",
-    _id: "1"
-}
+import { getProduct } from '../../actions/productAction';
+import { useSelector, useDispatch } from 'react-redux'
+import Loader from './../layout/Loader/Loader';
+import { useAlert } from 'react-alert'
+import { clearError } from './../../actions/productAction';
 
 function Home() {
+    const alert = useAlert()
+    const dispatch = useDispatch()
+
+    const { loading, error, products, productsCount } = useSelector(state => state.products)
+    console.log('products', products)
+
+    useEffect(() => {
+        if (error) {
+            alert.error(error)
+            dispatch(clearError())
+        }
+        dispatch(getProduct())
+
+    }, [dispatch, error, alert])
     return (
-        <Fragment>
-            <MetaData title="IU" />
-            <div className="banner">
-                <p>Welcome to ECOMMERCE</p>
-                <h1>FIND AMAZING PRODUCTS BELOW</h1>
+        <>
+            {loading ?
+                (<Loader />) :
+                (<>
+                    <MetaData title="IU" />
+                    <div className="banner">
+                        <p>Welcome to ECOMMERCE</p>
+                        <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
-                <a href="#container">
-                    <button>
-                        Scroll <CgMouse />
-                    </button>
-                </a>
-            </div>
-            <h2 className="homeHeading">Featured Products</h2>
+                        <a href="#container">
+                            <button>
+                                Scroll <CgMouse />
+                            </button>
+                        </a>
+                    </div>
+                    <h2 className="homeHeading">Featured Products</h2>
 
-            <div className="container" id="container">
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-                <Product product={product} />
-            </div>
-        </Fragment>
+                    <div className="container" id="container">
+                        {products && products.map(product => (
+                            <ProductCard product={product} key={product._id} />
+                        ))}
+                    </div>
+                </>)
+            }
+        </>
     )
 }
 
