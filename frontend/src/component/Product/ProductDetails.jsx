@@ -9,6 +9,7 @@ import './ProductDetails.css';
 import ReviewCard from './ReviewCard';
 import { useAlert } from 'react-alert';
 import { clearError } from './../../actions/productAction';
+import MetaData from '../layout/MetaData';
 
 
 function ProductDetails() {
@@ -41,6 +42,7 @@ function ProductDetails() {
                 <Loader />
                 : (
                     <>
+                        <MetaData title={`${product.name} -- ECOMMERCE`} />
                         <div className="ProductDetails">
                             <div>
                                 <Carousel>
