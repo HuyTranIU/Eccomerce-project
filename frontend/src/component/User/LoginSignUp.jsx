@@ -11,8 +11,8 @@ import Loader from './../layout/Loader/Loader';
 
 const LoginSignUp = () => {
     const dispatch = useDispatch()
-    const alert = useAlert();
-    let navigate = useNavigate();
+    const alert = useAlert()
+    let navigate = useNavigate()
     // let location = useLocation();
     const { error, loading, isAuthenticated } = useSelector(
         (state) => state.user
