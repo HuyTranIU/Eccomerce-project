@@ -4,10 +4,17 @@ const User = require("../models/userModal")
 const sendToken = require("../utils/jwtToken")
 const sendEmail = require("../utils/sendEmail")
 const crypto = require("crypto")
-
+const cloudinary = require("cloudinary")
 
 // Register a User 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale"
+    })
+
     const { name, email, password } = req.body
 
     const user = await User.create({
@@ -15,8 +22,8 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         email,
         password,
         avatar: {
-            public_id: "this is a sample id",
-            url: "profilepicUrl"
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
         }
     })
 
@@ -204,7 +211,7 @@ exports.getAllUser = catchAsyncError(async (req, res, next) => {
 exports.getSingleUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id)
 
-    if(!user) {
+    if (!user) {
         return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400))
     }
 
@@ -242,7 +249,7 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
 
     const user = await User.findById(req.params.id)
 
-    if(!user){
+    if (!user) {
         return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400))
     }
 
