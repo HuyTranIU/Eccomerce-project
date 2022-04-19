@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import SpeedDial from '@material-ui/lab/SpeedDial'
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
+import Backdrop from '@material-ui/core/Backdrop';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import PersonIcon from '@material-ui/icons/Person';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import './Header.css'
-import { useNavigate } from 'react-router-dom';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userAction';
+import './Header.css';
 
 function UserOptions({ user }) {
 
@@ -27,12 +28,12 @@ function UserOptions({ user }) {
         },
         {
             icon: <PersonIcon />,
-            name: "Orders",
+            name: "Account",
             func: account
         },
         {
             icon: <ExitToAppIcon />,
-            name: "Orders",
+            name: "Logout",
             func: logoutUser
         },
 
@@ -65,11 +66,14 @@ function UserOptions({ user }) {
 
     return (
         <>
+            <Backdrop open={open} style={{ zIndex: "10" }} />
             <SpeedDial
+                className='speedDial'
                 ariaLabel="SpeedDial example"
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 direction="down"
+                style={{ zIndex: "11" }}
                 open={open}
                 icon={
                     <img
