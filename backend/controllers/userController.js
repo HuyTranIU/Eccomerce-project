@@ -11,7 +11,10 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
-        width: 150,
+        width: 1920,
+        height: 1080,
+        quality: "auto",
+        fetch_format: "auto",
         crop: "scale"
     })
 
@@ -182,13 +185,34 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
         email: req.body.email,
     }
 
+    if (req.body.avatar !== "") {
+        const user = await User.findById(req.user.id)
+
+        const imageId = user.avatar.public_id
+
+        await cloudinary.v2.uploader.destroy(imageId)
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 1920,
+            height: 1080,
+            crop: "scale",
+            quality: "auto",
+            fetch_format: "auto"
+        })
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
+        }
+
+    }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
     })
-
 
     res.status(200).json({
         success: true,
