@@ -43,7 +43,7 @@ function UpdatePassword() {
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            alert.success("Profile Update Successfully")
+            alert.success("Update Password Successfully")
             dispatch(loadUser())
             navigate("/password/update")
 
@@ -64,7 +64,6 @@ function UpdatePassword() {
                                 <h2 className='updatePasswordHeading'>Update Profile</h2>
                                 <form
                                     className="updatePasswordForm"
-                                    encType="multipart/form-data"
                                     onSubmit={updatePasswordSubmit}
                                 >
                                     <div className="updatePassword">
