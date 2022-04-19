@@ -29,6 +29,7 @@ function UpdateProfile() {
 
     const updateProfileSubmit = (e) => {
         e.preventDefault();
+        console.log('form Submit', e)
 
         const myForm = new FormData();
 
@@ -48,6 +49,8 @@ function UpdateProfile() {
         };
         reader.readAsDataURL(e.target.files[0])
     }
+
+    console.log("avatar", avatar)
 
     useEffect(() => {
         if (user) {

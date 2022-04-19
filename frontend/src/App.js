@@ -17,6 +17,7 @@ import UserOptions from './component/layout/Header/UserOptions';
 import Profile from './component/User/Profile';
 import ProtectedRoute from './component/Route/ProtectedRoute';
 import UpdateProfile from './component/User/UpdateProfile';
+import UpdatePassword from './component/User/UpdatePassword';
 
 
 function App() {
@@ -45,8 +46,8 @@ function App() {
         <Route path='/products/:keyword' element={<Products />} />
 
         <Route path='/account' element={<ProtectedRoute component={Profile} />} />
-
         <Route path='/me/update' element={<ProtectedRoute component={UpdateProfile} />} />
+        <Route path='/password/update' element={<ProtectedRoute component={UpdatePassword} />} />
 
         <Route path='/search' element={<Search />} />
         <Route path='/login' element={<LoginSignUp />} />

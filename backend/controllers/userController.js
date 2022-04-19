@@ -11,11 +11,12 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
-        width: 1920,
-        height: 1080,
-        quality: "auto",
-        fetch_format: "auto",
-        crop: "scale"
+        transformation: [
+            { aspect_ratio: "1.0", gravity: "face", width: "0.6", zoom: "0.7", crop: "thumb" },
+            { radius: "max" },
+            { color: "black", effect: "outline:outer:4:100" },
+            { width: 200, crop: "scale" }
+        ]
     })
 
     const { name, email, password } = req.body
@@ -194,11 +195,12 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 
         const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
             folder: "avatars",
-            width: 1920,
-            height: 1080,
-            crop: "scale",
-            quality: "auto",
-            fetch_format: "auto"
+            transformation: [
+                { aspect_ratio: "1.0", gravity: "face", width: "0.6", zoom: "0.7", crop: "thumb" },
+                { radius: "max" },
+                { color: "black", effect: "outline:outer:4:100" },
+                { width: 200, crop: "scale" }
+            ]
         })
 
         newUserData.avatar = {
