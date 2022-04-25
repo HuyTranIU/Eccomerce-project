@@ -7,9 +7,10 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userAction';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './Header.css';
 
 function UserOptions({ user }) {
@@ -17,6 +18,7 @@ function UserOptions({ user }) {
     const [open, setOpen] = useState(false)
     let navigate = useNavigate()
     const alert = useAlert()
+    const { cartItems } = useSelector(state => state.cart)
 
     const dispatch = useDispatch()
 
@@ -30,6 +32,11 @@ function UserOptions({ user }) {
             icon: <PersonIcon />,
             name: "Account",
             func: account
+        },
+        {
+            icon: <ShoppingCartIcon style={{ color: cartItems.length > 0 ? "tomato" : "unset" }} />,
+            name: `Cart (${cartItems.length})`,
+            func: cart
         },
         {
             icon: <ExitToAppIcon />,
@@ -57,6 +64,9 @@ function UserOptions({ user }) {
 
     function account() {
         navigate("/account")
+    }
+    function cart() {
+        navigate("/cart")
     }
 
     function logoutUser() {

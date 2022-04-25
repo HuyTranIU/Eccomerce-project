@@ -3,20 +3,21 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import React, { useEffect, useRef, useState } from 'react';
 import { useAlert } from 'react-alert';
-import { Link, useNavigate } from 'react-router-dom';
-import "./LoginSignUp.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { login, clearErrors, register } from './../../actions/userAction';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { clearErrors, login, register } from './../../actions/userAction';
 import Loader from './../layout/Loader/Loader';
+import "./LoginSignUp.css";
 
 const LoginSignUp = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
     let navigate = useNavigate()
-    // let location = useLocation();
+    let location = useLocation()
     const { error, loading, isAuthenticated } = useSelector(
         (state) => state.user
     );
+
 
     const loginTab = useRef(null)
     const switcherTab = useRef(null)
@@ -38,7 +39,6 @@ const LoginSignUp = () => {
 
     const loginSubmit = (e) => {
         e.preventDefault();
-        console.log(e.preventDefault())
         dispatch(login(loginEmail, loginPassword));
     }
 
@@ -71,15 +71,17 @@ const LoginSignUp = () => {
         }
     }
 
+    const redirect = location.search ? location.search.split("=")[1] : "/account"
+
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
         if (isAuthenticated) {
-            navigate("/account")
+            navigate(redirect, { replace: true })
         }
-    }, [dispatch, alert, error, navigate, isAuthenticated])
+    }, [dispatch, alert, error, navigate, isAuthenticated, redirect])
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {

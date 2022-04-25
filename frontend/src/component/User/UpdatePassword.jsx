@@ -45,7 +45,7 @@ function UpdatePassword() {
         if (isUpdated) {
             alert.success("Update Password Successfully")
             dispatch(loadUser())
-            navigate("/password/update")
+            navigate("/account")
 
             dispatch({
                 type: UPDATE_PASSWORD_RESET
@@ -66,7 +66,7 @@ function UpdatePassword() {
                                     className="updatePasswordForm"
                                     onSubmit={updatePasswordSubmit}
                                 >
-                                    <div className="updatePassword">
+                                    <div>
                                         <VpnKeyIcon />
                                         <input
                                             type="password"
@@ -77,7 +77,7 @@ function UpdatePassword() {
                                         />
                                     </div>
 
-                                    <div className="updatePassword">
+                                    <div>
                                         <LockOpenIcon />
                                         <input
                                             type="password"
@@ -88,7 +88,7 @@ function UpdatePassword() {
                                         />
                                     </div>
 
-                                    <div className="updatePassword">
+                                    <div>
                                         <LockIcon />
                                         <input
                                             type="password"

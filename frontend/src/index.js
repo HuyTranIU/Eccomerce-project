@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import { BrowserRouter } from 'react-router-dom';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -18,9 +19,10 @@ const options = {
 root.render(
   <Provider store={store}>
     <AlertProvider template={AlertTemplate} {...options}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </AlertProvider>
-
   </Provider>
 );
 

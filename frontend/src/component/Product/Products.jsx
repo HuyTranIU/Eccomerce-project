@@ -8,9 +8,9 @@ import './Products.css';
 import Pagination from "react-js-pagination";
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import ReactStars from 'react-rating-stars-component';
 import { useAlert } from 'react-alert';
 import MetaData from './../layout/MetaData';
+import Rating from '@material-ui/lab/Rating';
 
 const categoties = [
     "Laptop",
@@ -38,14 +38,21 @@ function Products() {
         setRatings(newRating)
     }
 
+    // const options = {
+    //     color: "rgba(20,20, 20, 0.1)",
+    //     value: ratings,
+    //     onChange: ratingChanged,
+    //     count: 5,
+    //     size: window.innerWidth < 600 ? 20 : 22,
+    //     activeColor: "tomato",
+    //     isHalf: true,
+    // }
+
     const options = {
-        color: "rgba(20,20, 20, 0.1)",
         value: ratings,
         onChange: ratingChanged,
-        count: 5,
-        size: window.innerWidth < 600 ? 20 : 22,
-        activeColor: "tomato",
-        isHalf: true,
+        readOnly: true,
+        precision: 0.5
     }
 
     const priceHandler = (e, newPrice) => {
@@ -109,7 +116,7 @@ function Products() {
                                     min={0}
                                     max={5}
                                 /> */}
-                                <ReactStars {...options} />
+                                <Rating {...options} />
                             </fieldset>
                         </div>
 

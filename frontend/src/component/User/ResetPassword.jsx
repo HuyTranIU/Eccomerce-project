@@ -56,7 +56,7 @@ function ResetPassword() {
                                     onSubmit={resetPasswordSubmit}
                                 >
 
-                                    <div className="resetPassword">
+                                    <div>
                                         <LockOpenIcon />
                                         <input
                                             type="password"
@@ -67,7 +67,7 @@ function ResetPassword() {
                                         />
                                     </div>
 
-                                    <div className="resetPassword">
+                                    <div>
                                         <LockIcon />
                                         <input
                                             type="password"
