@@ -125,7 +125,7 @@ function ProductDetails() {
                                 </div>
                                 <div className="detailsBlock-2">
                                     <Rating {...options} />
-                                    <span>({product.numOfReviews}) Reviews</span>
+                                    <span className='detailsBlock-2-span'>({product.numOfReviews}) Reviews</span>
                                 </div>
                                 <div className="detailsBlock-3">
                                     <h1>{`$${product.price}`}</h1>
