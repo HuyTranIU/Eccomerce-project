@@ -55,18 +55,18 @@ function UserOptions({ user }) {
     }
 
     function dashboard() {
-        navigate("/dashboard")
+        navigate("/admin/dashboard", { replace: true })
     }
 
     function orders() {
-        navigate("/orders")
+        navigate("/orders", { replace: true })
     }
 
     function account() {
-        navigate("/account")
+        navigate("/account", { replace: true })
     }
     function cart() {
-        navigate("/cart")
+        navigate("/cart", { replace: true })
     }
 
     function logoutUser() {

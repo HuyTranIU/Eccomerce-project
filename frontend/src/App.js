@@ -29,6 +29,8 @@ import axios from 'axios';
 import OrderSuccess from './component/Cart/OrderSuccess';
 import MyOrders from './component/Order/MyOrders';
 import OrderDetails from './component/Order/OrderDetails';
+import Dashboard from './component/admin/Dashboard';
+import ProductList from './component/admin/ProductList';
 
 
 function App() {
@@ -93,6 +95,9 @@ function App() {
         <Route path='/orders' element={<ProtectedRoute component={MyOrders} />} />
         <Route path='/order/:id' element={<ProtectedRoute component={OrderDetails} />} />
 
+        <Route path='/admin/*' element={<ProtectedRoute isAdmin={true} component={Dashboard} />} >
+          <Route path='/admin/products' element={<ProtectedRoute isAdmin={true} component={ProductList} />} />
+        </Route>
 
       </Routes>
       <Footer />

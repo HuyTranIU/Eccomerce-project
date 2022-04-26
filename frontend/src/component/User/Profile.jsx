@@ -11,7 +11,7 @@ function Profile() {
 
     useEffect(() => {
         if (isAuthenticated === false) {
-            navigate("/login")
+            navigate("/login", { replace: true })
         }
     }, [navigate, isAuthenticated])
     return (

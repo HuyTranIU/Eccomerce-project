@@ -37,7 +37,7 @@ function ResetPassword() {
         }
         if (success) {
             alert.success("Reset Password Successfully")
-            navigate("/login")
+            navigate("/login", { replace: true })
 
         }
     }, [dispatch, alert, error, navigate, success])

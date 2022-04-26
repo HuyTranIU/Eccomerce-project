@@ -2,15 +2,21 @@ import React from 'react'
 import { Navigate } from "react-router-dom"
 import { useSelector } from 'react-redux';
 
-function ProtectedRoute({ component: Component }) {
+function ProtectedRoute({ component: Component, isAdmin }) {
 
-    const { loading, isAuthenticated } = useSelector(state => state.user)
-    console.log("isAuthenticated:", loading)
+    const { loading, isAuthenticated, user } = useSelector(state => state.user)
+
+    if (isAdmin === true && user.role !== "admin") {
+        return (
+            <Navigate to="/login" />
+        )
+    }
+
     return (
         <>
             {
-                !loading && (
-                    isAuthenticated ? <Component /> : isAuthenticated === false ? <Navigate to="/login" /> : <Component />
+                loading === false && (
+                    isAuthenticated ? <Component /> : <Navigate to="/login" />
                 )
             }
         </>
