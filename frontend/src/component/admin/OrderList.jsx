@@ -11,67 +11,68 @@ import Sidebar from './Sidebar';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import { useAlert } from 'react-alert';
-import { clearError, deleteProduct, getAdminProduct } from './../../actions/productAction';
-import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
+import { deleteOrder, getAllOrder } from '../../actions/orderAction';
+import { clearErrors } from './../../actions/orderAction';
+import { DELETE_ORDER_RESET } from '../../constants/orderConstants';
 
-function ProductList() {
+function OrderList() {
     const dispatch = useDispatch()
-    const { error, products } = useSelector(state => state.products)
+    const { error, orders } = useSelector(state => state.allOrders)
     const alert = useAlert()
     const navigate = useNavigate()
-    const { error: deleteError, isDeleted } = useSelector(state => state.product)
+    const { error: deleteError, isDeleted } = useSelector(state => state.order)
 
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id))
+    const deleteOrderHandler = (id) => {
+        dispatch(deleteOrder(id))
     }
 
     useEffect(() => {
         if (error) {
             alert.error(error)
-            dispatch(clearError())
+            dispatch(clearErrors())
         }
 
         if (deleteError) {
             alert.error(deleteError)
-            dispatch(clearError())
+            dispatch(clearErrors())
         }
         if (isDeleted) {
-            alert.success("Product Delete Successfully")
-            navigate("/admin/products")
-            dispatch({ type: DELETE_PRODUCT_RESET })
+            alert.success("Order Deleted Successfully")
+            navigate("/admin/orders")
+            dispatch({ type: DELETE_ORDER_RESET })
         }
 
-        dispatch(getAdminProduct())
+        dispatch(getAllOrder())
     }, [error, dispatch, alert, deleteError, isDeleted, navigate])
 
     const columns = [
         {
             field: "id",
-            headerName: "Product ID",
-            minWidth: 200,
-            flex: 0.5
+            headerName: "Order ID",
+            minWidth: 300,
+            flex: 1
         },
         {
-            field: "name",
-            headerName: "Name",
-            minWidth: 350,
-            flex: 1,
-            // cellClassName: (params) => {
-            //     return params.getValue(params.id, "status") === "Delivered" ? "greenColor" : "redColor"
-            // }
-        },
-        {
-            field: "stock",
-            headerName: "Stock",
+            field: "status",
+            headerName: "Status",
             minWidth: 150,
-            flex: 0.3,
+            flex: 0.5,
+            cellClassName: (params) => {
+                return params.getValue(params.id, "status") === "Delivered" ? "greenColor" : "redColor"
+            }
+        },
+        {
+            field: "itemsQty",
+            headerName: "Items Qty",
+            minWidth: 150,
+            flex: 0.4,
             type: "number"
         },
         {
-            field: "price",
-            headerName: "Price",
-            minWidth: 270,
+            field: "amount",
+            headerName: "Amount",
             type: "number",
+            minWidth: 150,
             flex: 0.5
         },
         {
@@ -84,10 +85,10 @@ function ProductList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+                        <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
                             <EditIcon />
                         </Link>
-                        <Button onClick={() => deleteProductHandler(params.getValue(params.id, "id"))}>
+                        <Button onClick={() => deleteOrderHandler(params.getValue(params.id, "id"))}>
                             <DeleteIcon />
                         </Button>
                     </>
@@ -98,18 +99,18 @@ function ProductList() {
 
     const rows = []
 
-    products && products.forEach((item) => {
+    orders && orders.forEach((item) => {
         rows.push({
             id: item._id,
-            stock: item.Stock,
-            price: item.price,
-            name: item.name
+            itemsQty: item.orderItems.length,
+            amount: item.totalPrice,
+            status: item.orderStatus,
         })
     })
 
     return (
         <>
-            <MetaData title="ALL PRODUCT - ADMIN" />
+            <MetaData title="ALL ORDERS - ADMIN" />
             <div className="dashboard">
                 <Sidebar />
 
@@ -129,4 +130,4 @@ function ProductList() {
     )
 }
 
-export default ProductList
+export default OrderList

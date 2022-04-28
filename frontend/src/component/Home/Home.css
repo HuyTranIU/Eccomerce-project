@@ -83,6 +83,8 @@
 
 .productCard > img {
     width: 14vmax;
+    height: 18vmax;
+    object-fit: contain;
 }
 
 .productCard > div {

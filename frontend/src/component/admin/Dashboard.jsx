@@ -1,20 +1,16 @@
-import React from 'react'
-import "./Dashboard.css"
-import Sidebar from './Sidebar';
 import { Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { Line, Doughnut } from 'react-chartjs-2'
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
+    ArcElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title,
+    Tooltip
 } from 'chart.js';
+import React from 'react';
+import { Doughnut, Line } from 'react-chartjs-2';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import "./Dashboard.css";
+import Sidebar from './Sidebar';
+import { useEffect } from 'react';
+import { getAdminProduct } from './../../actions/productAction';
 
 
 ChartJS.register(
@@ -29,6 +25,20 @@ ChartJS.register(
 );
 
 function Dashboard() {
+
+    const dispatch = useDispatch()
+    const { products } = useSelector(state => state.products)
+
+    let outOfStock = 0
+    products && products.forEach((item) => {
+        if (item.Stock === 0) {
+            outOfStock += 1
+        }
+    })
+
+    useEffect(() => {
+        dispatch(getAdminProduct())
+    }, [dispatch])
 
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
@@ -46,9 +56,9 @@ function Dashboard() {
         labels: ["Out of Stock", "inStock"],
         datasets: [
             {
-                backgroundColor: ["#00a6b4", "6800b4"],
+                backgroundColor: ["#00a6b4", "#6800b4"],
                 hoverBackgroundColor: ["#4b5000", "#35014f"],
-                data: [2, 10]
+                data: [outOfStock, products.length - outOfStock]
             }
         ]
     }
@@ -65,8 +75,8 @@ function Dashboard() {
                         </div>
                         <div className="dashboardSummaryBox2">
                             <Link to='/admin/products' >
-                                <p>Product</p>
-                                <p>50</p>
+                                <p>Products</p>
+                                <p>{products && products.length}</p>
                             </Link>
                             <Link to='/admin/orders' >
                                 <p>Orders</p>

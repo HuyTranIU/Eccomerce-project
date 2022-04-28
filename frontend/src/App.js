@@ -31,6 +31,10 @@ import MyOrders from './component/Order/MyOrders';
 import OrderDetails from './component/Order/OrderDetails';
 import Dashboard from './component/admin/Dashboard';
 import ProductList from './component/admin/ProductList';
+import NewProduct from './component/admin/NewProduct';
+import UpdateProduct from './component/admin/UpdateProduct';
+import OrderList from './component/admin/OrderList';
+import ProcessOrder from './component/admin/ProcessOrder';
 
 
 function App() {
@@ -95,9 +99,12 @@ function App() {
         <Route path='/orders' element={<ProtectedRoute component={MyOrders} />} />
         <Route path='/order/:id' element={<ProtectedRoute component={OrderDetails} />} />
 
-        <Route path='/admin/*' element={<ProtectedRoute isAdmin={true} component={Dashboard} />} >
-          <Route path='/admin/products' element={<ProtectedRoute isAdmin={true} component={ProductList} />} />
-        </Route>
+        <Route path='/admin/dashboard' element={<ProtectedRoute isAdmin={true} component={Dashboard} />} />
+        <Route path='/admin/products' element={<ProtectedRoute isAdmin={true} component={ProductList} />} />
+        <Route path='/admin/product' element={<ProtectedRoute isAdmin={true} component={NewProduct} />} />
+        <Route path='/admin/product/:id' element={<ProtectedRoute isAdmin={true} component={UpdateProduct} />} />
+        <Route path='/admin/orders' element={<ProtectedRoute isAdmin={true} component={OrderList} />} />
+        <Route path='/admin/order/:id' element={<ProtectedRoute isAdmin={true} component={ProcessOrder} />} />
 
       </Routes>
       <Footer />
