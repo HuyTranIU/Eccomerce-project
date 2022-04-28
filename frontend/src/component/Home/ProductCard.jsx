@@ -9,16 +9,17 @@ function ProductCard({ product }) {
         readOnly: true,
         precision: 1
     }
+    console.log("product Card: ", product)
     return (
         <div>
             <Link to={`/product/${product._id}`} className="productCard">
-                <img src={product.images[0].url} alt={product.name} />
-                <p>{product.name}</p>
+                <img src={product && product?.images[0]?.url} alt={product && product.name} />
+                <p>{product && product.name}</p>
                 <div>
                     <Rating {...options} />
-                    <span className='productCardSpan'>({product.numOfReviews} Review)</span>
+                    <span className='productCardSpan'>({product && product.numOfReviews} Review)</span>
                 </div>
-                <span>{`$${product.price}`}</span>
+                <span>{`$${product && product.price}`}</span>
             </Link>
         </div>
     )

@@ -12,7 +12,7 @@ import { useAlert } from 'react-alert';
 import MetaData from './../layout/MetaData';
 import Rating from '@material-ui/lab/Rating';
 
-const categoties = [
+const categories = [
     "Laptop",
     "Footwear",
     "Bottom",
@@ -95,7 +95,7 @@ function Products() {
                             />
                             <Typography>Categories</Typography>
                             <ul className="categoryBox">
-                                {categoties.map((category) => (
+                                {categories.map((category) => (
                                     <li
                                         className='category-link'
                                         key={category}

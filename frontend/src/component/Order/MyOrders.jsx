@@ -22,13 +22,13 @@ function MyOrders() {
     const columns = [
         {
             field: "id",
-            header: "Order ID",
+            headerName: "Order ID",
             minWidth: 300,
             flex: 1
         },
         {
             field: "status",
-            header: "Status",
+            headerName: "Status",
             minWidth: 150,
             flex: 0.5,
             cellClassName: (params) => {
@@ -37,14 +37,14 @@ function MyOrders() {
         },
         {
             field: "itemsQty",
-            header: "Items Qty",
+            headerName: "Items Qty",
             minWidth: 150,
             flex: 0.3,
             type: "number"
         },
         {
             field: "amount",
-            header: "Amount",
+            headerName: "Amount",
             type: "number",
             minWidth: 150,
             flex: 0.5
