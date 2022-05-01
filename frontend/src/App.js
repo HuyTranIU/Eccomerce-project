@@ -35,6 +35,12 @@ import NewProduct from './component/admin/NewProduct';
 import UpdateProduct from './component/admin/UpdateProduct';
 import OrderList from './component/admin/OrderList';
 import ProcessOrder from './component/admin/ProcessOrder';
+import UserList from './component/admin/UserList';
+import UpdateUser from './component/admin/UpdateUser';
+import ProductReviews from './component/admin/ProductReviews';
+import NotFound from './component/layout/Not Found/NotFound';
+import Contact from './component/layout/Contact/Contact';
+import About from './component/layout/About/About';
 
 
 function App() {
@@ -60,6 +66,7 @@ function App() {
   }, [])
 
   const stripePromise = loadStripe(stripeApiKey)
+  window.addEventListener("contextmenu", e => e.preventDefault())
 
   return (
     <>
@@ -67,6 +74,10 @@ function App() {
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Routes>
+        <Route path='*' element={<NotFound />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/about' element={<About />} />
+
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:keyword' element={<Products />} />
@@ -105,6 +116,9 @@ function App() {
         <Route path='/admin/product/:id' element={<ProtectedRoute isAdmin={true} component={UpdateProduct} />} />
         <Route path='/admin/orders' element={<ProtectedRoute isAdmin={true} component={OrderList} />} />
         <Route path='/admin/order/:id' element={<ProtectedRoute isAdmin={true} component={ProcessOrder} />} />
+        <Route path='/admin/users' element={<ProtectedRoute isAdmin={true} component={UserList} />} />
+        <Route path='/admin/user/:id' element={<ProtectedRoute isAdmin={true} component={UpdateUser} />} />
+        <Route path='/admin/reviews' element={<ProtectedRoute isAdmin={true} component={ProductReviews} />} />
 
       </Routes>
       <Footer />
