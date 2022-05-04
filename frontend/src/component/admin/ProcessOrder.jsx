@@ -18,7 +18,6 @@ const ProcessOrder = () => {
     const { error: updateError, isUpdated } = useSelector((state) => state.order);
     const params = useParams()
 
-    console.log("order: ", order)
 
     const updateOrderSubmitHandler = (e) => {
         e.preventDefault();

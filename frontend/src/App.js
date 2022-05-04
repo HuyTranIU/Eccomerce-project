@@ -23,7 +23,6 @@ import Shipping from './component/Cart/Shipping';
 import ConfirmOrder from './component/Cart/ConfirmOrder';
 import Payment from './component/Cart/Payment';
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import store from './store';
 import axios from 'axios';
 import OrderSuccess from './component/Cart/OrderSuccess';
@@ -41,6 +40,7 @@ import ProductReviews from './component/admin/ProductReviews';
 import NotFound from './component/layout/Not Found/NotFound';
 import Contact from './component/layout/Contact/Contact';
 import About from './component/layout/About/About';
+import { loadStripe } from '@stripe/stripe-js';
 
 
 function App() {
@@ -50,7 +50,6 @@ function App() {
 
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey")
-
     setStripeApiKey(data.stripeApiKey)
   }
 
@@ -65,7 +64,6 @@ function App() {
     getStripeApiKey()
   }, [])
 
-  const stripePromise = loadStripe(stripeApiKey)
   window.addEventListener("contextmenu", e => e.preventDefault())
 
   return (
@@ -100,7 +98,7 @@ function App() {
         <Route path='/order/confirm' element={<ProtectedRoute component={ConfirmOrder} />} />
 
         <Route path='/process/payment' element={
-          <Elements stripe={stripePromise}>
+          <Elements stripe={loadStripe(stripeApiKey)}>
             <ProtectedRoute component={Payment} />
           </Elements>
 

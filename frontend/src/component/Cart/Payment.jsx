@@ -63,7 +63,6 @@ function Payment() {
             }
 
             const { data } = await axios.post("/api/v1/payment/process", paymentData, config)
-            console.log("data: ", data)
 
             const client_secret = data.client_secret
 
@@ -85,7 +84,6 @@ function Payment() {
                     }
                 }
             })
-            console.log("result: ", result);
 
             if (result.error) {
                 payBtn.current.disabled = false

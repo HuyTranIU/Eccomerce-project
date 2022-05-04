@@ -65,7 +65,7 @@ function ProductDetails() {
 
     const options = {
         size: "small",
-        value: product.ratings,
+        value: product?.ratings,
         readOnly: true,
         precision: 0.5
     }
