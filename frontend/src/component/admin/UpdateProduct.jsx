@@ -104,7 +104,6 @@ function UpdateProduct() {
 
         files.forEach((file) => {
             const reader = new FileReader()
-            console.log('reader:', reader)
 
             reader.onload = () => {
                 if (reader.readyState === 2) {

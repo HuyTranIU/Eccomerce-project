@@ -9,7 +9,6 @@ function ProductCard({ product }) {
         readOnly: true,
         precision: 1
     }
-    console.log("product Card: ", product)
     return (
         <div>
             <Link to={`/product/${product._id}`} className="productCard">

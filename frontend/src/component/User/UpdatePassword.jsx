@@ -25,7 +25,6 @@ function UpdatePassword() {
 
     const updatePasswordSubmit = (e) => {
         e.preventDefault();
-        console.log('form Submit', e)
 
         const myForm = new FormData();
 
